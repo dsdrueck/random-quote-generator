@@ -1,7 +1,6 @@
+import logo from "./logo.svg";
 import "./App.css";
-import Nav from "./components/Nav.js";
 import { useState, useEffect } from "react";
-import DisplayQuote from "./components/DisplayQuote.js";
 
 const url =
   "https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json";
@@ -12,10 +11,9 @@ async function getData() {
 
 function App() {
   const [quotesData, updateQuotesData] = useState();
-  const [quote, updateQuote] = useState({ quote: "", author: "" });
+  const [quote, updateQuote] = useState();
   const [previousData, updatePreviousData] = useState();
   const [currentPage, updateCurrentPage] = useState(1);
-  const [showPage, updateShowPage] = useState(false);
 
   function random(a) {
     return Math.floor(Math.random() * a.length);
@@ -38,7 +36,6 @@ function App() {
     updateCurrentPage(lastPage + 1);
     updateQuote(newQuote);
     updatePreviousData(copyPrevious);
-    updateShowPage(true);
     console.log("quote", quote, "previousData", previousData);
   }
 
@@ -61,11 +58,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Nav />
-        <div>
-          <DisplayQuote quote={quote} />
-        </div>
-        {showPage ? <div className="page">Page {currentPage}</div> : ""}
+        <h1>Random Quote Generator</h1>
+        <div>{JSON.stringify(quote)}</div>
+        <div>Page: {currentPage}</div>
         <div>
           {currentPage > 1 && <button onClick={() => oldQuote()}>←</button>}
           <button
