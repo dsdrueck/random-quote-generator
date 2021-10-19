@@ -20,13 +20,43 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* .edit-delete-list {
+  display: grid;
+  text-align: left;
+  margin: 25px;
+}
+
+.edit-delete-id,
+.edit-delete-quote,
+.edit-delete-author {
+  padding: 5px;
+  color: grey;
+} */
+
+#myGrid {
+  text-align: left;
 }
 
 .page {
   margin-top: 10px;
   font-size: calc(6px + 2vmin);
+}
+
+a,
+a:visited {
+  color: #61dafb;
+}
+
+@media (max-width: 725px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 726px) {
+  .hide-on-desktop {
+    display: none !important;
+  }
 }
 
 @keyframes App-logo-spin {
