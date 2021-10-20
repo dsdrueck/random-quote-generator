@@ -1,4 +1,5 @@
 import { useState } from "react";
+import animateButton from "../App.js";
 
 export default function CreateQuote(props) {
   const [authorInput, updateAuthorInput] = useState();
@@ -13,63 +14,72 @@ export default function CreateQuote(props) {
   }
 
   function submitCreateQuote() {
-    {
-      console.log("SUBMIT CREATE QUOTE ACTION");
-      if (quoteInput && authorInput) {
-        let id = getNewUniqueId();
-        let copy = [...props.quotesData];
-        console.log(
-          "id",
-          id,
-          "authorInput",
-          authorInput,
-          "quoteInput",
-          quoteInput
-        );
-        props.updateQuotesData([
-          ...copy,
-          { id: id, quote: quoteInput, author: authorInput },
-        ]);
-        updateQuoteInput("");
-        updateAuthorInput("");
-        document.getElementById("create-quote").value = "";
-        document.getElementById("create-author").value = "";
-      } else {
-        alert(
-          "Submit failed! Make sure to complete the 'quote' and 'author' fields before submitting."
-        );
-      }
+    console.log("SUBMIT CREATE QUOTE ACTION");
+    if (quoteInput && authorInput) {
+      let id = getNewUniqueId();
+      let copy = [...props.quotesData];
+      console.log(
+        "id",
+        id,
+        "authorInput",
+        authorInput,
+        "quoteInput",
+        quoteInput
+      );
+      props.updateQuotesData([
+        ...copy,
+        { id: id, quote: quoteInput, author: authorInput },
+      ]);
+      updateQuoteInput("");
+      updateAuthorInput("");
+      document.getElementById("create-quote").value = "";
+      document.getElementById("create-author").value = "";
+      animateButton("submit-create-quote");
+    } else {
+      alert(
+        "Submit failed! Make sure to complete the 'quote' and 'author' fields before submitting."
+      );
     }
   }
 
   return (
-    <div>
-      <div>Add a new quote to the list</div>
-      <div>
-        Quote:{" "}
-        <input
-          id="create-quote"
-          onChange={(e) => updateAuthorInput(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              submitCreateQuote();
-            }
-          }}
-        ></input>
+    <div className="component-container">
+      <h2>Create</h2>
+      <div className="description">
+        Use the from below to add a new quote to the library.
       </div>
-      <div>
-        Author:{" "}
-        <input
-          id="create-author"
-          onChange={(e) => updateQuoteInput(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              submitCreateQuote();
-            }
-          }}
-        ></input>
+      <div className="form-container">
+        <div className="form-input-wrapper">
+          <div>Quote: </div>
+          <div>
+            <input
+              id="create-quote"
+              onChange={(e) => updateAuthorInput(e.target.value)}
+            ></input>
+          </div>
+          <div>Author: </div>
+          <div>
+            <input
+              id="create-author"
+              onChange={(e) => updateQuoteInput(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  submitCreateQuote();
+                }
+              }}
+            ></input>
+          </div>
+        </div>
       </div>
-      <button onClick={() => submitCreateQuote()}>Submit</button>
+
+      <button
+        id="submit-create-quote"
+        onClick={() => {
+          submitCreateQuote();
+        }}
+      >
+        Submit
+      </button>
     </div>
   );
 }

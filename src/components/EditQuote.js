@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AgGridReact, AgGridColumn } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+import "ag-grid-community/dist/styles/ag-theme-alpine-dark.css";
 
 function haveSameData(obj1, obj2) {
   const obj1Length = Object.keys(obj1).length;
@@ -15,7 +15,7 @@ function haveSameData(obj1, obj2) {
   return false;
 }
 
-export default function EditDeleteQuote(props) {
+export default function EditQuote(props) {
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
 
@@ -69,9 +69,14 @@ export default function EditDeleteQuote(props) {
   }
 
   return (
-    <div>
-      <div>Edit or delete a quote </div>
-      <div style={{ marginBottom: "5px" }}>
+    <div className="component-container">
+      <h2>Edit</h2>
+      <div className="description">
+        Use the table below to edit a quote. Left click into a field to begin
+        editing. Select the tickbox to the left of a quote to delete it, then
+        press the 'delete selected rows' button below. quote.
+      </div>
+      <div className="before-grid">
         <input
           type="text"
           onInput={() => onQuickFilterChanged()}
@@ -79,14 +84,7 @@ export default function EditDeleteQuote(props) {
           placeholder="Quick filter..."
         />
       </div>
-      <div
-        id="myGrid"
-        style={{
-          height: "60vh",
-          width: "80vw",
-        }}
-        className="ag-theme-alpine"
-      >
+      <div id="myGrid" className="ag-theme-alpine-dark">
         <AgGridReact
           defaultColDef={{
             flex: 1,

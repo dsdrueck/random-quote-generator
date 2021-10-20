@@ -1,3 +1,15 @@
+# Random Quotes Generator
+
+This is a random quotes generator. I built this project to practice pagination and CRUD requirements with React and JavaScript. Quotes data comes from FreeCodeCamp's Quotes JSON asset, see App.js for URL.
+
+Features:
+
+- Generate a random quote in serial
+- Review previously generated quotes
+- Edit, delete, and create new quotes
+
+### Author: Dennis Drueck 2021
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
