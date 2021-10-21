@@ -84,7 +84,7 @@ export default function EditQuote(props) {
           placeholder="Quick filter..."
         />
       </div>
-      <div id="myGrid" className="ag-theme-alpine-dark">
+      <div id="edit-grid" className="ag-theme-alpine-dark">
         <AgGridReact
           defaultColDef={{
             flex: 1,

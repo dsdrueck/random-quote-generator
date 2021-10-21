@@ -115,20 +115,23 @@ nav ul {
 }
 .form-input-wrapper {
   margin: 20px;
-  grid-template-columns: 1fr 4fr;
-  grid-template-rows: 1fr;
-  display: grid;
-  gap: 30px;
+  display: flex;
+  flex-direction: column;
   justify-items: start;
+  align-items: flex-start;
 }
 .form-input-wrapper > textarea,
 input {
   width: 45vw;
-  margin-right: 25px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
-
+#create-quote {
+  margin-bottom: 20px;
+}
+.form- {
+  margin-bottom: 5px;
+}
 .quote-text {
   text-shadow: 2px 2px rgba(66, 66, 66, 0.5);
 }
@@ -196,7 +199,7 @@ button::after {
 button:focus {
   outline: 1px solid white;
 }
-#myGrid {
+#edit-grid {
   height: 48vh;
   width: 80vw;
 }
@@ -224,11 +227,22 @@ button:focus {
   h2 {
     margin-top: 18px;
   }
-}
-@media (max-width: 600px) {
   .header {
     flex-wrap: wrap;
     padding: 0;
     align-items: center;
+  }
+  .form-input-wrapper {
+    margin: 0;
+  }
+  .form-container {
+    padding: 0;
+  }
+  .form-input-wrapper > textarea,
+  input {
+    width: 80vw;
+  }
+  #edit-grid {
+    height: 42vh;
   }
 }

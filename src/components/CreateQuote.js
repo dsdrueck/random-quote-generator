@@ -50,14 +50,18 @@ export default function CreateQuote(props) {
       </div>
       <div className="form-container">
         <div className="form-input-wrapper">
-          <div>Quote: </div>
+          <label className="form-label" for="create-quote">
+            Quote:{" "}
+          </label>
           <div>
             <input
               id="create-quote"
               onChange={(e) => updateAuthorInput(e.target.value)}
             ></input>
           </div>
-          <div>Author: </div>
+          <label className="form-label" for="create-author">
+            Author:{" "}
+          </label>
           <div>
             <input
               id="create-author"
