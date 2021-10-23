@@ -72,7 +72,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <container className="App-wrapper">
+        <div className="App-wrapper">
           <header className="header">
             <div className="header-chunk">
               <a href="https://github.com/dsdrueck">
@@ -134,7 +134,7 @@ function App() {
             </Route>
           </Switch>
           {/* <button onClick={() => logMyState()}>Log state to console</button> */}
-        </container>
+        </div>
       </div>
     </Router>
   );

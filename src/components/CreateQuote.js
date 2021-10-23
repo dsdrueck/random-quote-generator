@@ -1,5 +1,5 @@
 import { useState } from "react";
-import animateButton from "../App.js";
+import { animateButton } from "../App.js";
 
 export default function CreateQuote(props) {
   const [authorInput, updateAuthorInput] = useState();
@@ -50,22 +50,22 @@ export default function CreateQuote(props) {
       </div>
       <div className="form-container">
         <div className="form-input-wrapper">
-          <label className="form-label" for="create-quote">
+          <label className="form-label" htmlFor="create-quote">
             Quote:{" "}
           </label>
           <div>
             <input
               id="create-quote"
-              onChange={(e) => updateAuthorInput(e.target.value)}
+              onChange={(e) => updateQuoteInput(e.target.value)}
             ></input>
           </div>
-          <label className="form-label" for="create-author">
+          <label className="form-label" htmlFor="create-author">
             Author:{" "}
           </label>
           <div>
             <input
               id="create-author"
-              onChange={(e) => updateQuoteInput(e.target.value)}
+              onChange={(e) => updateAuthorInput(e.target.value)}
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   submitCreateQuote();

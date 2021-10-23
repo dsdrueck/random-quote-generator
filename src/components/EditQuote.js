@@ -2,8 +2,13 @@ import { useState } from "react";
 import { AgGridReact, AgGridColumn } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine-dark.css";
+import { animateButton } from "../App.js";
 
 function haveSameData(obj1, obj2) {
+  if (!obj1 || !obj2) {
+    console.log("haveSameData failed, obj1, obj2: ", obj1, obj2);
+    return false;
+  }
   const obj1Length = Object.keys(obj1).length;
   const obj2Length = Object.keys(obj2).length;
 
@@ -31,35 +36,26 @@ export default function EditQuote(props) {
   };
   const onRemoveSelected = () => {
     const selectedRowData = gridApi.getSelectedRows();
-    console.log(selectedRowData);
     gridApi.applyTransaction({ remove: selectedRowData });
+    let ids = [];
+    selectedRowData.forEach((item) => ids.push(item.id));
 
-    let filteredQuotesData = [...props.quotesData];
-    let filteredPreviousData = [...props.previousData];
-    for (const key in selectedRowData) {
-      if (haveSameData(props.quote, selectedRowData[key])) {
-        props.updateQuote({ quote: "", author: "" });
-      }
-      for (const key2 in props.previousData) {
-        if (haveSameData(props.previousData[key2], selectedRowData[key])) {
-          console.log(
-            "haveSameData!",
-            "props.previousData[key2], selectedRowData[key]",
-            props.previousData[key2],
-            selectedRowData[key]
-          );
-          filteredPreviousData = filteredPreviousData.filter(
-            (item) => !haveSameData(item, selectedRowData[key])
-          );
-        }
-      }
-
-      filteredQuotesData = filteredQuotesData.filter(
-        (item) => item !== selectedRowData[key]
-      );
+    if (ids.includes(props.quote.id)) {
+      props.updateQuote({ quote: "", author: "" });
     }
-    props.updateQuotesData(filteredQuotesData);
-    props.updatePreviousData(filteredPreviousData);
+    const filteredQuotesData = props.quotesData.filter(
+      (item) => !ids.includes(item.id)
+    );
+    const filteredPreviousData = props.previousData.filter(
+      (item) => !ids.includes(item.id)
+    );
+    if (!haveSameData(props.quotesData, filteredQuotesData)) {
+      props.updateQuotesData(filteredQuotesData);
+      animateButton("delete-selected");
+    }
+    if (!haveSameData(props.previousData, filteredPreviousData)) {
+      props.updatePreviousData(filteredPreviousData);
+    }
   };
 
   function isFirstColumn(params) {
@@ -108,7 +104,6 @@ export default function EditQuote(props) {
             minWidth={"500"}
             editable={true}
             singleClickEdit={true}
-            stopEditingWhenCellsLoseFocus={true}
           ></AgGridColumn>
           <AgGridColumn
             field="author"
@@ -116,13 +111,14 @@ export default function EditQuote(props) {
             maxWidth={"185"}
             editable={true}
             singleClickEdit={true}
-            stopEditingWhenCellsLoseFocus={true}
           ></AgGridColumn>
         </AgGridReact>
       </div>
 
       <div>
-        <button onClick={() => onRemoveSelected()}>Delete selected rows</button>
+        <button id="delete-selected" onClick={() => onRemoveSelected()}>
+          Delete selected rows
+        </button>
       </div>
     </div>
   );

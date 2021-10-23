@@ -73,7 +73,7 @@ export default function DisplayQuote({
         quote.
       </div>
       <div className="quote-container">
-        <i class="fas fa-quote-right fa-2x"></i>
+        <i className="fas fa-quote-right fa-2x"></i>
 
         <div className="quote-text">
           {JSON.stringify(quote.quote).slice(1, -1)}
@@ -88,7 +88,7 @@ export default function DisplayQuote({
       <div>
         {currentPage > 1 ? (
           <button id="display-quote-back" onClick={() => oldQuote()}>
-            <i class="fas fa-angle-left fa-2x"></i>
+            <i className="fas fa-angle-left fa-2x"></i>
           </button>
         ) : (
           <button
@@ -96,7 +96,7 @@ export default function DisplayQuote({
             id="display-quote-back"
             onClick={() => oldQuote()}
           >
-            <i class="fas fa-angle-left fa-2x"></i>
+            <i className="fas fa-angle-left fa-2x"></i>
           </button>
         )}
         <button
@@ -105,7 +105,7 @@ export default function DisplayQuote({
             previousData.length <= currentPage ? newQuote() : nextQuote()
           }
         >
-          <i class="fas fa-angle-right fa-2x"></i>
+          <i className="fas fa-angle-right fa-2x"></i>
         </button>
       </div>
       {showPage ? <div className="page">Page {currentPage}</div> : ""}
