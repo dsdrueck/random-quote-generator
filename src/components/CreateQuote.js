@@ -53,26 +53,22 @@ export default function CreateQuote(props) {
           <label className="form-label" htmlFor="create-quote">
             Quote:{" "}
           </label>
-          <div>
-            <input
-              id="create-quote"
-              onChange={(e) => updateQuoteInput(e.target.value)}
-            ></input>
-          </div>
+          <input
+            id="create-quote"
+            onChange={(e) => updateQuoteInput(e.target.value)}
+          ></input>
           <label className="form-label" htmlFor="create-author">
             Author:{" "}
           </label>
-          <div>
-            <input
-              id="create-author"
-              onChange={(e) => updateAuthorInput(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  submitCreateQuote();
-                }
-              }}
-            ></input>
-          </div>
+          <input
+            id="create-author"
+            onChange={(e) => updateAuthorInput(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                submitCreateQuote();
+              }
+            }}
+          ></input>
         </div>
       </div>
 

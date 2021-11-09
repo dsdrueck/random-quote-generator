@@ -1,16 +1,24 @@
-import "./App.css";
+import "./App.scss";
 import EditQuote from "./components/EditQuote.js";
 import CreateQuote from "./components/CreateQuote.js";
 import { useState, useEffect } from "react";
 import DisplayQuote from "./components/DisplayQuote.js";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import logo from "./drueck-logo300.png";
+import axios from "axios";
+import fallbackData from "./data/fallbackData.json";
 
-const url =
+let url =
   "https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json";
+url = "https://google.com/1234567";
+
 async function getData() {
-  const result = await (await fetch(url)).json();
-  return result.quotes;
+  try {
+    const result = await axios.get(url);
+    return result.data.quotes;
+  } catch {
+    return fallbackData.quotes;
+  }
 }
 function random(a) {
   return Math.floor(Math.random() * a.length);
@@ -22,6 +30,7 @@ function enumerateQuotes(data) {
     author: item.author,
   }));
 }
+
 export function animateButton(id) {
   document.getElementById(id).style.transform = "scale(0.9, 0.9)";
   setTimeout(
@@ -37,8 +46,9 @@ function App() {
   const [currentPage, updateCurrentPage] = useState(1);
   const [showPage, updateShowPage] = useState(false);
   const [fetchingStatus, updateFetchingStatus] = useState(0);
+  const [animationClassName, setAnimationClassName] = useState("fade-in");
 
-  function myUseEffect() {
+  useEffect(() => {
     getData()
       .then((result) => {
         updateQuotesData(enumerateQuotes(result));
@@ -49,10 +59,9 @@ function App() {
         updateQuote(enumeratedResult[r]);
         updatePreviousData([enumeratedResult[r]]);
         updateFetchingStatus(1);
-      });
-  }
-
-  useEffect(() => myUseEffect(), []);
+      })
+      .catch((error) => alert(error));
+  }, []);
 
   // function logMyState() {
   //   console.log(
@@ -105,12 +114,13 @@ function App() {
                 previousData={previousData}
                 currentPage={currentPage}
                 showPage={showPage}
-                updateQuotesData={updateQuotesData}
                 updateQuote={updateQuote}
                 updatePreviousData={updatePreviousData}
                 updateCurrentPage={updateCurrentPage}
                 updateShowPage={updateShowPage}
                 random={random}
+                animationClassName={animationClassName}
+                setAnimationClassName={setAnimationClassName}
               />
             </Route>
             <Route path="/create">
@@ -119,6 +129,8 @@ function App() {
                 updateQuotesData={updateQuotesData}
                 updateQuote={updateQuote}
                 updatePreviousData={updatePreviousData}
+                animationClassName={animationClassName}
+                setAnimationClassName={setAnimationClassName}
               />
             </Route>
             <Route path="/edit">
@@ -130,6 +142,8 @@ function App() {
                 updateQuotesData={updateQuotesData}
                 updateQuote={updateQuote}
                 updatePreviousData={updatePreviousData}
+                animationClassName={animationClassName}
+                setAnimationClassName={setAnimationClassName}
               />
             </Route>
           </Switch>

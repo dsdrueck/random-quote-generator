@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { animateButton } from "../App";
 
 export default function DisplayQuote({
@@ -6,12 +7,13 @@ export default function DisplayQuote({
   previousData,
   currentPage,
   showPage,
-  updateQuotesData,
   updateQuote,
   updatePreviousData,
   updateCurrentPage,
   updateShowPage,
   random,
+  animationClassName,
+  setAnimationClassName,
 }) {
   function newQuote() {
     console.log("NEW QUOTE REQUEST");
@@ -33,7 +35,6 @@ export default function DisplayQuote({
       );
     }
   }
-
   function oldQuote() {
     console.log("OLD QUOTE REQUEST");
     if (previousData.length > 0) {
@@ -49,7 +50,6 @@ export default function DisplayQuote({
       );
     }
   }
-
   function nextQuote() {
     console.log("NEXT QUOTE REQUEST");
     if (previousData.length > 0) {
@@ -65,6 +65,35 @@ export default function DisplayQuote({
     }
   }
 
+  function handler(type) {
+    console.log(
+      70 +
+        quotesData.reduce(function (a, b) {
+          return a.quote.length <= b.quote.length ? a : b;
+        }).quote
+    );
+    switch (type) {
+      case "forward":
+        previousData.length <= currentPage ? newQuote() : nextQuote();
+        setAnimationClassName("fade-out");
+        setTimeout(() => {
+          console.log(74);
+          setAnimationClassName("fade-in");
+        }, 100);
+        break;
+      case "back":
+        oldQuote();
+        setAnimationClassName("fade-out");
+        setTimeout(() => {
+          setAnimationClassName("fade-in");
+        }, 100);
+        break;
+      default:
+        console.error(`Invalid handler type: ${type}`);
+        break;
+    }
+  }
+
   return (
     <div className="component-container">
       <h2>Random Quote Generator</h2>
@@ -72,7 +101,7 @@ export default function DisplayQuote({
         Use the buttons below to generate a new quote or go back to a previous
         quote.
       </div>
-      <div className="quote-container">
+      <div className={"quote-container " + animationClassName}>
         <i className="fas fa-quote-right fa-2x"></i>
 
         <div className="quote-text">
@@ -87,24 +116,19 @@ export default function DisplayQuote({
       </div>
       <div>
         {currentPage > 1 ? (
-          <button id="display-quote-back" onClick={() => oldQuote()}>
+          <button id="display-quote-back" onClick={() => handler("back")}>
             <i className="fas fa-angle-left fa-2x"></i>
           </button>
         ) : (
           <button
             style={{ visibility: "hidden" }}
             id="display-quote-back"
-            onClick={() => oldQuote()}
+            onClick={() => handler("back")}
           >
             <i className="fas fa-angle-left fa-2x"></i>
           </button>
         )}
-        <button
-          id="display-quote-forward"
-          onClick={() =>
-            previousData.length <= currentPage ? newQuote() : nextQuote()
-          }
-        >
+        <button id="display-quote-forward" onClick={() => handler("forward")}>
           <i className="fas fa-angle-right fa-2x"></i>
         </button>
       </div>

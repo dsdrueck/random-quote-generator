@@ -1,5 +1,55 @@
 @import url("https://use.fontawesome.com/releases/v5.9.0/css/all.css");
 
+/* animations */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-ms-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+.fade-out {
+  opacity: 0;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -77,6 +127,7 @@ nav ul {
   margin-right: auto;
 }
 .component-container {
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,10 +135,17 @@ nav ul {
 }
 .quote-container,
 .form-container {
+  min-width: 60%;
   padding: 30px;
   margin-left: 5%;
   margin-right: 5%;
   border-radius: 0.5em;
+  input {
+    width: 100%;
+  }
+  @media (min-width: 400px) {
+    max-width: 650px;
+  }
 }
 .quote-container {
   background: rgba(225, 0, 255, 0.45);
@@ -96,6 +154,7 @@ nav ul {
   background: #222628;
 }
 .form-input-wrapper {
+  // width: calc(100% - 40px);
   margin: 20px;
   display: flex;
   flex-direction: column;
@@ -104,7 +163,7 @@ nav ul {
 }
 .form-input-wrapper > textarea,
 input {
-  width: 45vw;
+  // width: 45vw;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
@@ -116,7 +175,8 @@ input {
   font-size: 14px;
 }
 .quote-text {
-  text-shadow: 2px 2px rgba(66, 66, 66, 0.5);
+  text-shadow: 2px 2px rgba(150, 137, 137, 0.5);
+  line-height: 1.5em;
 }
 .fa-quote-right {
   margin-bottom: 15px;
@@ -188,6 +248,15 @@ button:focus {
   width: 80vw;
 }
 
+@media (max-width: 500px) {
+  .form-container {
+    min-width: calc(80% - 20px);
+    // margin: 0 10px;
+    // padding: 0;
+    // background: inherit;
+  }
+}
+
 @media (max-width: 600px) {
   .header-chunk {
     width: 100%;
@@ -205,8 +274,10 @@ button:focus {
     padding: 0 10px;
   }
   .form-container {
-    background: inherit;
-    margin: 0 10px;
+    min-width: 60%;
+    // margin: 0 10px;
+    // padding: 0;
+    // background: inherit;
   }
   h2 {
     margin-top: 18px;
@@ -219,14 +290,22 @@ button:focus {
   .form-input-wrapper {
     margin: 0;
   }
-  .form-container {
-    padding: 0;
-  }
   .form-input-wrapper > textarea,
   input {
     width: 80vw;
   }
   #edit-grid {
     height: 42vh;
+  }
+}
+
+@media (max-width: 1000px) {
+  .form-container {
+    min-width: 65%;
+  }
+}
+@media (min-width: 1500px) {
+  .form-container {
+    min-width: 33%;
   }
 }
